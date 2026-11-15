@@ -440,7 +440,7 @@ def _metadata(name, source, params, result):
                 "",
                 "Places where the species have been reported from the same place (not necessarily "
                 "at the same time), found with the plugin Species Data "
-                f"(SLU Artdatabanken): species {', '.join(result.wanted)}; localities within "
+                f"(Sverige): species {', '.join(result.wanted)}; localities within "
                 f"{params.max_gap:g} m plus their radii form one place; places wider than a radius of "
                 f"{params.max_radius:g} m are split (0 = no limit); "
                 f"{'only current localities; ' if params.only_current else ''}"

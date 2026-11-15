@@ -30,6 +30,7 @@ Open. Needs an API key.
 - Open source plugin approved. Each user using their own API key is fine (questions 1 and 2: yes, including the name and the independence text).
 - Question 3 (logo, wording of the source): SLU Artdatabanken has a logo, SOS does not. SLU will come back with an answer. Do not use any logo until then.
 - Protected observations need a SLU UserAdmin login and permission. The plugin does not handle them (unchanged decision).
+- Name (superseded): SLU first found "Species Data (SLU Artdatabanken)" acceptable, but see the reply of 2026-11-11 below.
 - This is a mail reply, not yet a formal written approval under 5.3/5.6 of the terms. Ask whether it is enough to publish.
 
 ## Follow-up reply from SLU (2026-11-05)
@@ -76,3 +77,8 @@ Open.
 ## Other
 - Fynddata (`fynddata.artdatabanken.se`, SLU Artdatabanken's own search web app, used as a UI reference) requires login, so its search pages cannot be read without the user signing in.
 - Date fields are UTC instants of Swedish local time. Date-only observations span from the previous day 22:00Z or 23:00Z to the day itself 21:59:59Z or 22:59:59Z. Range filters in `species_data/query.py` are built around this and should be checked against Artportalen's web counts.
+
+## Replies of 2026-11-04 and 2026-11-11
+- 2026-11-04: each user needs their own API key (no shared key, because the code is open); WFS needs no key today, but REST is preferred (about 5000 observations is the practical WFS limit). Written approval to publish the independent plugin as open source on GitHub and plugins.qgis.org, as described and if the API terms are followed. The source may be given as the text "SLU Artdatabanken" without a logo for now.
+- 2026-11-11: after testing the plugin and consulting management, SLU Artdatabanken said that SLU and SLU Artdatabanken logos must not be used in the plugin or to present it. They suggested renaming the plugin (and the GitHub repository) because the name can look like an official add-on, for example in the plugin catalogue; their example was "Species Data (Sweden)" with the repository `species-data-sweden-qgis-plugin`, but another name is welcome. Naming SLU Artdatabanken, Artportalen and Species Observation System in the description to explain the source is fine. Text changes: write "Species Observation System" without "(Artportalen)" and add that only the Artportalen dataset is used; on the GitHub front page, "Artportalen dataset" instead of "Artportalen data".
+- Decision: the plugin is renamed "Species Data (Sverige)". The repository name is kept for now (open question).

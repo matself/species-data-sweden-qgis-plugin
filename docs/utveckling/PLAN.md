@@ -21,7 +21,7 @@ Sedan milstolpe 1 har följande hänt:
 
 Avsnitten nedan är den ursprungliga planen. Det som faktiskt byggdes och avvek:
 
-- Namn: "Species Data (SLU Artdatabanken)" / "Artdata (SLU Artdatabanken)", paketet heter `species_data`. Supportmejlet är skickat (`supportmail-skickat.md`), svar saknas.
+- Namn: "Species Data (Sverige)" / "Artdata (Sverige)", paketet heter `species_data`. Namnet byttes efter SLU:s mejl 2026-11-11 (se `findings.md`); tidigare namn var "Species Data (SLU Artdatabanken)". GitHub-repot heter fortfarande `slu-artdatabanken-QGIS-plugin`.
 - Inget API-nyckel behövs i denna version: allt går via den öppna WFS-tjänsten. Auth, taxonomisökning (Dyntaxa) och REST-sökning är inte byggda. `Query.to_sos_filter()` är förberedd men oanvänd.
 - Endast kärlväxter och endast Artportalen (dataProviderId 1). Skyddade fynd hanteras aldrig (fas 4 utgår).
 - WFS-filter: OGC-XML, inte CQL (se `findings.md`). `resultType=hits` fungerar inte: antal räknas genom sökning med `startIndex`.

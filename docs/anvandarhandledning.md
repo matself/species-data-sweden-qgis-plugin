@@ -1,18 +1,18 @@
-# Bruksanvisning: Artdata (SLU Artdatabanken)
+# Bruksanvisning: Artdata (Sverige)
 
 Den här handledningen är på svenska och hör till version 1.0.1 av pluginet. En engelsk beskrivning finns i [README.md](../README.md).
 
-> **Fristående plugin.** Pluginet är utvecklat av en privatperson. Det ägs, utvecklas och stöds inte av SLU eller SLU Artdatabanken. Fynddata hämtas från SLU Artdatabankens Species Observation System (Artportalen) enligt deras API-villkor.
+> **Fristående plugin.** Pluginet är utvecklat av en privatperson. Det ägs, utvecklas och stöds inte av SLU eller SLU Artdatabanken. Fynddata hämtas från SLU Artdatabankens Species Observation System enligt deras API-villkor. Pluginet använder bara fynd från datasetet Artportalen.
 >
 
 ## 1. Vad pluginet gör
 
-Pluginet gör prickkartor av fynd av kärlväxter i Artportalen, direkt i QGIS, utan att man behöver kunna API:er eller filterspråk. Man anger art eller släkte, tid, område och några fyndegenskaper, ser hur många fynd som matchar, och får ett punktlager på kartan, färgat efter år.
+Pluginet gör prickkartor av fynd av kärlväxter från datasetet Artportalen, direkt i QGIS, utan att man behöver kunna API:er eller filterspråk. Man anger art eller släkte, tid, område och några fyndegenskaper, ser hur många fynd som matchar, och får ett punktlager på kartan, färgat efter år.
 
 Begränsningar i den här versionen:
 
 - bara kärlväxter (organismgruppen Kärlväxter)
-- bara fynd från Artportalen (inte iNaturalist, herbariedata och andra dataset)
+- bara fynd från datasetet Artportalen (inte iNaturalist, herbariedata och andra dataset)
 - inga skyddsklassade fynd (de finns inte i den öppna tjänsten)
 - inget konto eller API-nyckel behövs, men det går inte att använda de delar av SLU Artdatabankens API som kräver nyckel
 
@@ -23,9 +23,9 @@ Krav: QGIS 3.44 eller senare, och internetanslutning.
 1. Öppna **Tillägg > Hantera och installera tillägg...** (på engelska *Plugins > Manage and Install Plugins...*).
 2. Välj fliken **Installera från ZIP**.
 3. Välj filen `species_data-1.0.1.zip` och klicka **Installera tillägg**. Svara OK om QGIS varnar för att installera från en fil.
-4. Se till att **Artdata (SLU Artdatabanken)** är ikryssat under fliken **Installerade**.
+4. Se till att **Artdata (Sverige)** är ikryssat under fliken **Installerade**.
 
-Pluginet visas som en vitsippsikon i verktygsraden och som **Tillägg > Artdata (SLU Artdatabanken)**. Klicka på det för att öppna eller stänga panelen, som dockas till höger. Panelen är på svenska om QGIS är inställt på svenska, annars på engelska.
+Pluginet visas som en vitsippsikon i verktygsraden och som **Tillägg > Artdata (Sverige)**. Klicka på det för att öppna eller stänga panelen, som dockas till höger. Panelen är på svenska om QGIS är inställt på svenska, annars på engelska.
 
 ## 3. Snabbstart
 
@@ -116,7 +116,7 @@ Resultatet är ett tillfälligt lager som ser ut som ett hämtat: prickar färga
 - Bara de kolumner som motsvarar pluginets egna fält läses: art, svenskt namn, datum, lokal, kommun, län, landskap, koordinatnoggrannhet, rödlistekategori, mängd, dataset och om fyndet är "ej funnet", "ej återfunnet" eller osäkert bestämt. **Övriga kolumner, bland annat observatörens namn, läses aldrig.**
 - Fynd som är markerade "ej funnet" (frånvaro) hoppas över. Fynd som är "ej återfunnet" tas med och märks.
 - Filerna `filter.md`, `citation.md` och `datasets.md` läggs i lagrets metadata om de hör till samma export. Det avgörs av tidpunkten i filnamnet och i filernas rubriker, så att en gammal `filter.md` i samma mapp inte används av misstag. Om filerna saknas eller hör till en annan export står det i dialogen, och lagrets metadata säger att urvalet inte är känt.
-- Exporten kan ha fler källor än Artportalen, till exempel Virtuella Herbariet och iNaturalist. Fältet `datasetName` finns kvar i lagret, och antalet per dataset står i metadatan. Resultatet beror då på vilka källor du valde i Fynddata.
+- Exporten kan ha fler källor än datasetet Artportalen, till exempel Virtuella Herbariet och iNaturalist. Fältet `datasetName` finns kvar i lagret, och antalet per dataset står i metadatan. Resultatet beror då på vilka källor du valde i Fynddata.
 - Pluginet har bara provats med exporter från Fynddata på svenska. Kolumnerna i en export på engelska känns inte igen.
 - Filer med fler än 100 000 fynd ger en fråga innan lagret skapas, eftersom kartan och grupperingen blir långsamma.
 
@@ -172,7 +172,7 @@ Under *Avancerat* ställer du in största avstånd mellan lokaler, största plat
 
 ## 6. Data, villkor och personuppgifter
 
-- Källan är SLU Artdatabankens öppna WFS-tjänst för Artportalens fynd. Pluginet visar källan i panelen, i meddelandet efter hämtning och i lagrets metadata. Villkoren finns här: <https://www.slu.se/artdatabanken/rapportering-och-fynd/oppna-data-och-apier/api-villkor/>
+- Källan är SLU Artdatabankens öppna WFS-tjänst för fynd från datasetet Artportalen. Pluginet visar källan i panelen, i meddelandet efter hämtning och i lagrets metadata. Villkoren finns här: <https://www.slu.se/artdatabanken/rapportering-och-fynd/oppna-data-och-apier/api-villkor/>
 - Personuppgiftsfälten `recordedBy` och `reportedBy` hämtas aldrig.
 - Dataset kan ha olika licens. Se fältet `datasetName`, som alltid följer med.
 - Fritext i anmärkningar kan innehålla personuppgifter, och hämtas bara om du själv kryssar i det.

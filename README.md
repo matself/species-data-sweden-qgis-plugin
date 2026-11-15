@@ -1,8 +1,8 @@
 <img src="species_data/icon.svg" alt="Plugin icon" width="72" height="72" align="right">
 
-# Species Data (SLU Artdatabanken)
+# Species Data (Sverige)
 
-A QGIS plugin for building dot maps of vascular plant observations from the Artportalen data held by SLU Artdatabanken, without needing to know APIs or filter languages.
+A QGIS plugin for building dot maps of vascular plant observations from the Artportalen dataset held by SLU Artdatabanken, without needing to know APIs or filter languages.
 
 > **Independent plugin.** This plugin is community-developed. It is not developed, owned or endorsed by SLU or SLU Artdatabanken. Data is retrieved from SLU Artdatabanken's Species Observation System under their API terms. Observation data is provided by SLU Artdatabanken; see their [API terms](https://www.slu.se/artdatabanken/rapportering-och-fynd/oppna-data-och-apier/api-villkor/).
 
@@ -31,7 +31,7 @@ The settings of a result are stored in its layer metadata, so a result can be re
 
 **Open an export from Fynddata** makes a layer of a GeoJSON file saved from SLU's search page Fynddata (Swedish column names), so a search made there can be used on the Localities and Co-occurrence tabs. Only columns matching the plugin's own fields are read.
 
-Limits of this version: vascular plants only, Artportalen data only, no protected (sensitive) observations, no API key needed.
+Limits of this version: vascular plants only, Artportalen dataset only, no protected (sensitive) observations, no API key needed.
 
 ## Documentation
 
