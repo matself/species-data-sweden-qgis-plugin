@@ -4,22 +4,9 @@ Skrivet 2026-11-09, efter att `export-import` mergats till `main`. Version 1.0.1
 
 Reglerna i [CLAUDE.md](../../CLAUDE.md) gäller för varje punkt: källogg, metodbeskrivningarna hålls i takt med koden, och posten i `CHANGELOG.md` och i `species_data/metadata.txt` skrivs i samma incheckning som versionshöjningen.
 
-## 1. Markera alla / avmarkera alla i artlistan på fliken Lokaler
+## 1. Markera alla / avmarkera alla i artlistan på fliken Lokaler — klart (2026-11-24)
 
-**Problem.** När ett lager har flera arter visar fliken Lokaler en kryssruta per art, och alla är förkryssade från början. Hämtar man ett område med många arter måste man klicka bort dem en och en för att välja en enda.
-
-**Önskemål.** Två knappar, *Markera alla* och *Avmarkera alla*, vid artlistan.
-
-**Var i koden.** `species_data/locality_tab.py`: `species_box` (rad ca 134), `_fill_species`, `_chosen` och `itemChanged` som anropar `_refresh`.
-
-**Att tänka på**
-- Knapparna ska ändra alla kryssrutor utan att anropa `_refresh` en gång per art. Blockera signalerna, ändra alla och anropa sedan `_refresh` en gång, som `_fill_species` redan gör.
-- Vad ska hända när inga arter är valda? Idag returnerar `_chosen` en lista som kan bli tom. Starta-knappen bör vara avstängd, eller så ska användaren få veta varför inget händer. Kontrollera nuvarande beteende först.
-- Artlistan är dold när det finns högst en art, så knapparna följer med den rutan.
-- Lagernamnet följer valet (bara de valda arterna skrivs ut). Det ska fortsätta fungera.
-- Texter i `tr(...)` ska in i `species_data/i18n/species_data_sv.ts` och `.qm` (se `scripts/translations.py`).
-- Test: ett test som markerar alla och avmarkerar alla och kontrollerar `_chosen`. Hela flikens test körs i CI mot QGIS.
-- Dokumentera i handledningen (avsnittet om Lokaler) och i `CHANGELOG.md`.
+Två knappar, **Check all** och **Uncheck all** (`species_data/locality_tab.py`: `_check_all`), vid artlistan. De blockerar signalerna, ändrar alla kryssrutor och anropar `_refresh` en gång, inte en gång per art. Är ingen art ikryssad visar `_refresh` redan "Tick at least one species in the list." och Starta-knappen är avstängd, som tidigare. Test i `tests/test_plugin_load.py` (körs i CI mot QGIS). Texterna är i `species_data/i18n/species_data_sv.ts`/`.qm`, handledningen och `CHANGELOG.md` är uppdaterade.
 
 ## 2. Sök inom en polygon eller en ruta som användaren ritar på kartan
 
@@ -46,6 +33,27 @@ Reglerna i [CLAUDE.md](../../CLAUDE.md) gäller för varje punkt: källogg, meto
 **Test.** `Query` med polygon ger rätt XML (finns delvis). Nytt: kartverktygets resultat blir en giltig `polygon_wgs84`. Ett live-test mot WFS med en liten polygon, som en manuell kontroll och inte i CI.
 
 **Dokumentation.** Handledningen (avsnittet om Hämta, fliken Geografi), `CHANGELOG.md`, och en rad i README. Metodbeskrivningarna berörs bara om valet av område förändrar vad som kallas en lokal, vilket det inte gör.
+
+## 3. Svar från SLU Artdatabanken om namn, logotyp och beskrivning (inkommet 2026-11-11)
+
+**Status.** Mats har inte bestämt om han följer önskemålen. Punkten är en minnesanteckning, ingenting ska ändras förrän han bestämt sig. Svaret kom från Martin på SLU Artdatabanken efter att han provat pluginet och stämt av med chef och förvaltningsansvarig.
+
+**Vad SLU sa**
+- *Bra som det är:* README och handledningen säger tydligt att pluginet är fristående och varken utvecklas, ägs eller stöds av SLU eller SLU Artdatabanken, och anger varifrån data hämtas.
+- *Logotyp:* SLU:s och SLU Artdatabankens logotyper får inte användas i pluginet eller för att presentera det, eftersom de kan ge intryck av att SLU står bakom eller samarbetar kring produkten. Kontrollera ikonen (`icon` i `species_data/metadata.txt`, bildfilen i paketet) och eventuella bilder i README och handledningen.
+- *Namn:* SLU föreslår att namnet "Species Data (SLU Artdatabanken)" och GitHub-repositoryt byts, eftersom namnen i sig kan ge intryck av ett officiellt tillägg, särskilt i QGIS tilläggskatalog. Förslag: **Species Data (Sweden)** och repositorynamnet `species-data-sweden-qgis-plugin`. Annat namn är fritt. Att nämna SLU Artdatabanken, Artportalen och Species Observation System som datakälla är fortsatt tillåtet.
+- *Beskrivning av datakällan:*
+  - Handledningen: byt "Fynddata hämtas från SLU Artdatabankens Species Observation System (Artportalen) enligt deras API-villkor." till "Fynddata hämtas från SLU Artdatabankens Species Observation System enligt deras API-villkor. Pluginet använder bara fynd från datasetet Artportalen." Skälet: parentesen får Species Observation System och Artportalen att se ut som samma sak.
+  - GitHubs huvudsida (repository-beskrivningen): "Artportalen data" blir "Artportalen dataset", alltså "A QGIS plugin for building dot maps of vascular plant observations from the Artportalen dataset held by SLU Artdatabanken, …".
+
+**Att avgöra först**
+- Ska namnet bytas? Ett namnbyte rör många ställen: `name` i `species_data/metadata.txt`, `species_data/plugin.py`, `species_data/dockwidget.py` (fönstertitel), `species_data/i18n/species_data_sv.ts` och `.qm`, `tests/test_metadata.py`, README, handledningen, metodbeskrivningarna, `CHANGELOG.md`, `docs/utveckling/` samt URL:erna `homepage`, `repository` och `tracker` i metadata.
+- Repositorynamn: GitHub vidarebefordrar gamla adresser vid omdöpning, men `homepage`, `repository` och `tracker` i metadata och länkar i dokumenten bör uppdateras. Mappnamnet `species_data` (paketet) behöver inte ändras och bör inte det, eftersom det är pluginets id i QGIS.
+- Har pluginet redan publicerats på plugins.qgis.org med det gamla namnet? Då gäller andra regler för namnbyte där. Kontrollera innan något ändras.
+- Ikonen: om den innehåller SLU:s logotyp eller liknar den, byts den mot en egen. Annars räcker det att svara SLU att den inte gör det.
+- Svar till Martin när Mats bestämt sig, oavsett utfall.
+
+**Dokumentation.** Ändrar namnet eller beskrivningen något som metodbeskrivningarna citerar ska de hållas i takt med koden (CLAUDE.md). Posten i `CHANGELOG.md` och i `species_data/metadata.txt` ska vara lika.
 
 ## Redan känt och öppet (från tidigare, inte ändrat här)
 

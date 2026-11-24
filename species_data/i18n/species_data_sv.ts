@@ -249,6 +249,14 @@
       <translation>Fyndlager</translation>
     </message>
     <message>
+      <source>Check all</source>
+      <translation>Markera alla</translation>
+    </message>
+    <message>
+      <source>Uncheck all</source>
+      <translation>Avmarkera alla</translation>
+    </message>
+    <message>
       <source>Custom (see Advanced)</source>
       <translation>Egen (se Avancerat)</translation>
     </message>
@@ -339,6 +347,10 @@
     <message>
       <source>(no name)</source>
       <translation>(namn saknas)</translation>
+    </message>
+    <message>
+      <source>(unknown)</source>
+      <translation type="unfinished" />
     </message>
     <message>
       <source>The layer has no usable observations.</source>

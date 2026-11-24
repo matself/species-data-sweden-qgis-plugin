@@ -34,6 +34,7 @@ from qgis.PyQt.QtWidgets import (
     QCheckBox,
     QComboBox,
     QFormLayout,
+    QHBoxLayout,
     QLabel,
     QListWidget,
     QListWidgetItem,
@@ -138,6 +139,14 @@ class LocalityTab(QWidget):
         self.species_list = QListWidget()
         self.species_list.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         species_layout.addWidget(self.species_list)
+        species_buttons = QHBoxLayout()
+        self.check_all_button = QPushButton(tr("Check all"))
+        self.check_all_button.clicked.connect(lambda: self._check_all(True))
+        species_buttons.addWidget(self.check_all_button)
+        self.uncheck_all_button = QPushButton(tr("Uncheck all"))
+        self.uncheck_all_button.clicked.connect(lambda: self._check_all(False))
+        species_buttons.addWidget(self.uncheck_all_button)
+        species_layout.addLayout(species_buttons)
         form.addRow(self.species_box)
         self.species_box.setVisible(False)
 
@@ -326,6 +335,15 @@ class LocalityTab(QWidget):
             for i in range(self.species_list.count())
             if self.species_list.item(i).checkState() == Qt.CheckState.Checked
         }
+
+    def _check_all(self, checked: bool):
+        """Tick or untick every species at once, with a single refresh instead of one per item."""
+        state = Qt.CheckState.Checked if checked else Qt.CheckState.Unchecked
+        self.species_list.blockSignals(True)
+        for i in range(self.species_list.count()):
+            self.species_list.item(i).setCheckState(state)
+        self.species_list.blockSignals(False)
+        self._refresh()
 
     def _refresh(self, found=None):
         if found is None:

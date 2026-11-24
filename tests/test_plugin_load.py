@@ -78,6 +78,30 @@ def test_the_classes_are_drawn_in_the_order_of_the_legend():
         assert drawn_on_top([upper, lower]) == upper
 
 
+def test_check_all_and_uncheck_all_tick_every_species_with_one_refresh():
+    from qgis.PyQt.QtCore import Qt
+    from qgis.PyQt.QtWidgets import QListWidgetItem
+
+    from species_data.locality_tab import LocalityTab
+
+    tab = LocalityTab(iface=None)
+    refreshes = []
+    tab.species_list.itemChanged.connect(lambda *_: refreshes.append(1))
+    for name in ("Rosa canina", "Tilia cordata", "Quercus robur"):
+        item = QListWidgetItem(name)
+        item.setFlags(item.flags() | Qt.ItemFlag.ItemIsUserCheckable)
+        item.setCheckState(Qt.CheckState.Checked)
+        tab.species_list.addItem(item)
+
+    tab._check_all(False)
+    assert tab._chosen() == set()
+    assert not refreshes  # blockSignals kept itemChanged from firing once per item
+
+    tab._check_all(True)
+    assert tab._chosen() == {"Rosa canina", "Tilia cordata", "Quercus robur"}
+    assert not refreshes
+
+
 def test_the_first_click_shows_the_panel_and_the_second_hides_it():
     from qgis.gui import QgsMapCanvas
     from qgis.PyQt.QtWidgets import QMainWindow
