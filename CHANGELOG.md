@@ -1,9 +1,9 @@
 # Changelog
 
-All notable changes to Species data (Sverige). The same entries, shortened, are in the `changelog` key of `species_data/metadata.txt`, which is what QGIS and plugins.qgis.org show. Keep the two in step.
+All notable changes to Species Data (SLU Artdatabanken). The same entries, shortened, are in the `changelog` key of `species_data/metadata.txt`, which is what QGIS and plugins.qgis.org show. Keep the two in step.
 
 ## Unreleased
-- The GitHub repository is renamed `species-data-sweden-qgis-plugin`; the old links are redirected. The plugin is renamed from **Species Data (SLU Artdatabanken)** to **Species data (Sverige)** (same in both languages, no separate Swedish translation), at the request of SLU Artdatabanken, because a name with SLU in it can look like an official add-on in the plugin catalogue. The package name is unchanged. The `X-Requesting-System` header now says `Species data (Sverige)`. SLU Artdatabanken is still named as the source of the data.
+- The GitHub repository is renamed `species-data-sweden-qgis-plugin`; the old links are redirected. The plugin itself keeps its name, **Species Data (SLU Artdatabanken)**: SLU Artdatabanken suggested a rename too, but a published QGIS plugin's display name can only be changed by QGIS's own Plugin Administration team on request, a separate, slow process not worth it for this plugin. Instead, the independence notice is now the first thing said about the plugin, in the README, the user guide and the panel itself: not developed, owned or endorsed by SLU, and not an official SLU Artdatabanken add-on.
 - Data-source wording, also requested by SLU Artdatabanken: the texts now say that the plugin uses the Artportalen dataset of the Species Observation System, instead of implying Artportalen and the Species Observation System are the same thing.
 - New area on the Geography tab: **Drawn rectangle**. Click **Draw rectangle**, drag on the map, release to finish (Escape cancels). The area is shown in hectares, and a rectangle over 100 ha is rejected: observation density varies too much across the country for a count-based limit to be meaningful. **Clear** removes it again.
 - Localities tab: **Check all** and **Uncheck all** buttons next to the species list, to tick or untick every species at once instead of one at a time.

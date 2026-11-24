@@ -427,8 +427,8 @@
       <translation>Ange minst ett arts- eller släktnamn, eller kryssa i Alla arter.</translation>
     </message>
     <message>
-      <source>Species data (Sverige)</source>
-      <translation>Species data (Sverige)</translation>
+      <source>Species Data (SLU Artdatabanken)</source>
+      <translation>Artdata (SLU Artdatabanken)</translation>
     </message>
     <message>
       <source>Count observations</source>
@@ -645,8 +645,8 @@
       <translation>Arter</translation>
     </message>
     <message>
-      <source>Data: SLU Artdatabanken, Species Observation System, dataset Artportalen. Independent plugin, not owned or endorsed by SLU. &lt;a href="{url}"&gt;Terms of use&lt;/a&gt;.</source>
-      <translation>Data: SLU Artdatabanken, Species Observation System, datasetet Artportalen. Fristående plugin som inte ägs eller stöds av SLU. &lt;a href="{url}"&gt;Användarvillkor&lt;/a&gt;.</translation>
+      <source>&lt;b&gt;Independent plugin, not owned or endorsed by SLU.&lt;/b&gt; Data: SLU Artdatabanken, Species Observation System, dataset Artportalen. &lt;a href="{url}"&gt;Terms of use&lt;/a&gt;.</source>
+      <translation>&lt;b&gt;Fristående plugin som inte ägs eller stöds av SLU.&lt;/b&gt; Data: SLU Artdatabanken, Species Observation System, datasetet Artportalen. &lt;a href="{url}"&gt;Användarvillkor&lt;/a&gt;.</translation>
     </message>
     <message>
       <source>At least {n} observations: too many. Narrow the search.</source>
@@ -700,8 +700,8 @@
   <context>
     <name>SpeciesDataPlugin</name>
     <message>
-      <source>Species data (Sverige)</source>
-      <translation>Species data (Sverige)</translation>
+      <source>Species Data (SLU Artdatabanken)</source>
+      <translation>Artdata (SLU Artdatabanken)</translation>
     </message>
   </context>
 </TS>

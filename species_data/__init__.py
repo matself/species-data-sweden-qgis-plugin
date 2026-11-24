@@ -1,4 +1,4 @@
-"""Species data (Sverige) - QGIS plugin entry point."""
+"""Species Data (SLU Artdatabanken) - QGIS plugin entry point."""
 
 
 def classFactory(iface):  # noqa: N802 (name required by QGIS)

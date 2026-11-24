@@ -624,7 +624,7 @@ def _metadata(name, source, params, species=(), sources=""):
     lines = [
         source.metadata().abstract() or provenance.SOURCE,
         "",
-        f"Observations grouped into localities with the plugin Species data (Sverige): "
+        f"Observations grouped into localities with the plugin Species Data (SLU Artdatabanken): "
         f"link distance {params.link_distance:g} m, "
         f"{'with' if params.uncertainty_weight else 'without'} coordinate uncertainty, "
         f"observations less precise than {params.max_uncertainty:g} m left out, "
