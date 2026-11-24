@@ -31,7 +31,7 @@ The settings of a result are stored in its layer metadata, so a result can be re
 
 **Open an export from Fynddata** makes a layer of a GeoJSON file saved from SLU's search page Fynddata (Swedish column names), so a search made there can be used on the Localities and Co-occurrence tabs. Only columns matching the plugin's own fields are read.
 
-Limits of this version: vascular plants only, Artportalen data only, no protected (sensitive) observations, no API key needed.
+Limits of this version: vascular plants only, Artportalen dataset only, no protected (sensitive) observations, no API key needed.
 
 ## Documentation
 

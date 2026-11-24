@@ -4,16 +4,15 @@ Den här handledningen är på svenska och hör till version 1.0.1 av pluginet. 
 
 > **Fristående plugin.** Pluginet är utvecklat av en privatperson. Det ägs, utvecklas och stöds inte av SLU eller SLU Artdatabanken. Fynddata hämtas från SLU Artdatabankens Species Observation System enligt deras API-villkor. Pluginet använder bara fynd från datasetet Artportalen.
 >
-> **Testversion.** Pluginet är märkt experimentellt och är inte publicerat. Synpunkter välkomnas, se sist i det här dokumentet.
 
 ## 1. Vad pluginet gör
 
-Pluginet gör prickkartor av fynd av kärlväxter i Artportalen, direkt i QGIS, utan att man behöver kunna API:er eller filterspråk. Man anger art eller släkte, tid, område och några fyndegenskaper, ser hur många fynd som matchar, och får ett punktlager på kartan, färgat efter år.
+Pluginet gör prickkartor av fynd av kärlväxter från datasetet Artportalen, direkt i QGIS, utan att man behöver kunna API:er eller filterspråk. Man anger art eller släkte, tid, område och några fyndegenskaper, ser hur många fynd som matchar, och får ett punktlager på kartan, färgat efter år.
 
 Begränsningar i den här versionen:
 
 - bara kärlväxter (organismgruppen Kärlväxter)
-- bara fynd från Artportalen (inte iNaturalist, herbariedata och andra dataset)
+- bara fynd från datasetet Artportalen (inte iNaturalist, herbariedata och andra dataset)
 - inga skyddsklassade fynd (de finns inte i den öppna tjänsten)
 - inget konto eller API-nyckel behövs, men det går inte att använda de delar av SLU Artdatabankens API som kräver nyckel
 
@@ -118,7 +117,7 @@ Resultatet är ett tillfälligt lager som ser ut som ett hämtat: prickar färga
 - Bara de kolumner som motsvarar pluginets egna fält läses: art, svenskt namn, datum, lokal, kommun, län, landskap, koordinatnoggrannhet, rödlistekategori, mängd, dataset och om fyndet är "ej funnet", "ej återfunnet" eller osäkert bestämt. **Övriga kolumner, bland annat observatörens namn, läses aldrig.**
 - Fynd som är markerade "ej funnet" (frånvaro) hoppas över. Fynd som är "ej återfunnet" tas med och märks.
 - Filerna `filter.md`, `citation.md` och `datasets.md` läggs i lagrets metadata om de hör till samma export. Det avgörs av tidpunkten i filnamnet och i filernas rubriker, så att en gammal `filter.md` i samma mapp inte används av misstag. Om filerna saknas eller hör till en annan export står det i dialogen, och lagrets metadata säger att urvalet inte är känt.
-- Exporten kan ha fler källor än Artportalen, till exempel Virtuella Herbariet och iNaturalist. Fältet `datasetName` finns kvar i lagret, och antalet per dataset står i metadatan. Resultatet beror då på vilka källor du valde i Fynddata.
+- Exporten kan ha fler källor än datasetet Artportalen, till exempel Virtuella Herbariet och iNaturalist. Fältet `datasetName` finns kvar i lagret, och antalet per dataset står i metadatan. Resultatet beror då på vilka källor du valde i Fynddata.
 - Pluginet har bara provats med exporter från Fynddata på svenska. Kolumnerna i en export på engelska känns inte igen.
 - Filer med fler än 100 000 fynd ger en fråga innan lagret skapas, eftersom kartan och grupperingen blir långsamma.
 
@@ -174,7 +173,7 @@ Under *Avancerat* ställer du in största avstånd mellan lokaler, största plat
 
 ## 6. Data, villkor och personuppgifter
 
-- Källan är SLU Artdatabankens öppna WFS-tjänst för Artportalens fynd. Pluginet visar källan i panelen, i meddelandet efter hämtning och i lagrets metadata. Villkoren finns här: <https://www.slu.se/artdatabanken/rapportering-och-fynd/oppna-data-och-apier/api-villkor/>
+- Källan är SLU Artdatabankens öppna WFS-tjänst för fynd från datasetet Artportalen. Pluginet visar källan i panelen, i meddelandet efter hämtning och i lagrets metadata. Villkoren finns här: <https://www.slu.se/artdatabanken/rapportering-och-fynd/oppna-data-och-apier/api-villkor/>
 - Personuppgiftsfälten `recordedBy` och `reportedBy` hämtas aldrig.
 - Dataset kan ha olika licens. Se fältet `datasetName`, som alltid följer med.
 - Fritext i anmärkningar kan innehålla personuppgifter, och hämtas bara om du själv kryssar i det.
@@ -198,13 +197,3 @@ Under *Avancerat* ställer du in största avstånd mellan lokaler, största plat
 | Punkterna syns inte | Kontrollera att lagret är ikryssat och att kartan är i rätt område. Lagret ligger överst men kan döljas av ett annat lager. |
 | Räkningen eller hämtningen stannar | Tjänsten kan vara långsam eller ha ett driftavbrott (servern startas om dagligen). Avbryt i uppgiftshanteraren och försök igen om en stund. Felet visas i en ruta. |
 | Lagret är borta efter omstart | Det är ett tillfälligt lager. Exportera det först, se avsnitt 5. |
-
-## 9. Synpunkter och granskning
-
-Det här är en första testversion. Särskilt intressant att få synpunkter på:
-
-- om namnsökningen (art, släkte, svenskt släktnamn) är tydlig och räcker som start
-- om gränserna (varning från 2 000 fynd, stopp vid 100 000) och antalet anrop är rimliga för tjänsten
-- om källangivelsen och texten om att pluginet är fristående är tillräckliga och tydliga
-
-Skicka synpunkter till Mats Elfström, mats.elfstrom@gmail.com, eller som ärende på kodförrådet: <https://github.com/matself/species-data-sweden-qgis-plugin/issues> (kodförrådet är ännu inte publikt).

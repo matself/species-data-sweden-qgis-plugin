@@ -189,7 +189,7 @@ class SpeciesDataDockWidget(QDockWidget):
 
         source = QLabel(
             tr(
-                "Data: Artportalen, via SLU Artdatabanken, Species Observation System. "
+                "Data: SLU Artdatabanken, Species Observation System, dataset Artportalen. "
                 "Independent plugin, not owned or endorsed by SLU. "
                 '<a href="{url}">Terms of use</a>.'
             ).format(url=TERMS_URL)

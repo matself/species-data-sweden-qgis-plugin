@@ -20,6 +20,10 @@ Löpande logg enligt reglerna i `CLAUDE.md`. Format: datum | vad som gjordes | k
 | 2026-11-05 | Läste som referens: SLU:s uppföljande mejlsvar (nyckel per användare, WFS utan nyckel, önskemål om REST, fråga om testare), inklistrat av användaren. Inga utdrag kopierades; endast fakta sammanfattades | mejl från SLU | ej tillämpligt (korrespondens) | `docs/utveckling/findings.md` |
 | 2026-11-05 | Läste som referens: sökresultat om iNaturalists API (rate limit, lagring av data, licenser). Sidorna lästes inte i sin helhet och inga utdrag kopierades | https://forum.inaturalist.org/t/discrepancy-between-documented-rate-limit-observed-rate-limit/8612 och https://forum.inaturalist.org/t/are-you-allowed-to-store-inaturalist-data-from-the-api-on-your-own-server/75969 | licens okänd (forumtext) | `docs/utveckling/kallor-och-organismgrupper.md` |
 | 2026-11-05 | Läste som referens: en exportfil från Fynddata (GeoJSON) och dess filter.json, filter.md, citation.md och datasets.md, som användaren tillhandahöll, för kolumnnamn, filterstruktur och citeringstext. Inga utdrag kopierades. Filer med personuppgifter (observatör, användar-id) lades inte i förrådet och testerna använder påhittade data | filer från SLU Artdatabankens Fynddata, hämtade av användaren | ej tillämpligt (data från användarens egen sökning) | `species_data/fynddata_export.py`, `tests/test_fynddata_export.py` |
+| 2026-11-15 | Läste som referens: hela mejltråden med SLU (2026-10-24 till 2026-11-11, PDF), inklistrad av användaren. Inga utdrag kopierades; endast fakta (namn, logotyp, formuleringar om datakällan) sammanfattades. Textförslagen om datasetet Artportalen användes i egna ord | mejltråd med support@artdatabanken.se (SLU) | ej tillämpligt (korrespondens) | `docs/utveckling/findings.md`, `docs/utveckling/PLAN.md`, `README.md`, `docs/anvandarhandledning.md`, `species_data/metadata.txt` |
+| 2026-11-15 | Läste som referens: publiceringsreglerna och PyQGIS-handbokens avsnitt om plugin-metadata, för vad som gäller vid namnbyte efter publicering. Inga utdrag kopierades | https://plugins.qgis.org/docs/publish_plugin, https://docs.qgis.org/latest/en/docs/pyqgis_developer_cookbook/plugins/plugins.html | ej angiven (webbsidor) | `docs/utveckling/findings.md` |
+| 2026-11-15 | Skrev svar på SLU:s mejl 2026-11-11 (namnbyte till Species Data (Sverige), nytt reponamn, textändringar, ingen logotyp). Svaret är inte en källa; texten står i avsnittet *Svar till SLU* nedan. Skickat av Mats (bekräftat 2026-11-15) | mejl till support@artdatabanken.se (SLU) | ej tillämpligt (korrespondens) | `docs/SOURCES.md` |
+| 2026-11-24 | Läste som referens: FAQ-sidan om att byta namn på ett redan publicerat plugin (visningsnamn kräver mejl till administrationsteamet, paketets id/`package_name` ska aldrig bytas) | https://plugins.qgis.org/docs/faq | ej angiven (webbsida) | `docs/utveckling/TODO.md` |
 
 ## Egna undersökningar utan extern kodkälla
 
@@ -28,3 +32,24 @@ Det här är inga källor att ange, men de förklarar var fakta kommer ifrån:
 - Beteendet hos den öppna WFS-tjänsten (CQL, `bbox` kontra filter, `resultType=hits`, geometrifältet `point`, `startIndex`-sökning) har testats med direkta anrop. Resultaten står i `docs/utveckling/findings.md`.
 - QGIS WFS-leverantörens beteende (`filter`, paginering, `restrictToRequestBBOX`) har provats i QGIS 3.44.2.
 - `scripts/translations.py` skriver Qts `.qm`-format utan att Qts `lrelease` används. Formatet skrevs utifrån modellens allmänna kunskap, ingen källa lästes. Resultatet verifierades genom att ladda filen med `QTranslator` i QGIS och slå upp översättningar.
+
+## Svar till SLU (skickat 2026-11-15)
+
+Svar till Martin Käck på mejlet 2026-11-11. Skrivet i sessionen och skickat av Mats.
+
+> Hej Martin!
+>
+> Tack för att du testade pluginet och stämde av internt.
+>
+> Jag har nu följt ert förslag:
+>
+> - **Titeln:** Pluginet heter **Species Data (Sverige)** (på svenska Artdata (Sverige)). SLU Artdatabanken ingår inte längre i namnet, men finns kvar i beskrivningen som datakälla.
+> - **GitHub-repot:** Det heter nu `species-data-sweden-qgis-plugin`, så som du föreslog. De gamla länkarna vidarebefordras, så länken till installationsfilen i mitt tidigare mejl fungerar fortfarande.
+> - **Texterna:** Jag har ändrat som du föreslog i README, användarhandledningen och beskrivningen. Species Observation System står utan "(Artportalen)", och det framgår att pluginet bara använder datasetet Artportalen. Det står "Artportalen dataset" på GitHubs huvudsida.
+> - **Logotyper:** Pluginet använder inga logotyper från SLU eller SLU Artdatabanken.
+>
+> Det nya namnet syns i QGIS tilläggskatalog först när jag släpper nästa version. Jag har fortfarande en att-göra-lista att arbeta av före den, så det dröjer en tid. Tills dess visar katalogen det gamla namnet.
+>
+> Tack för bra synpunkter och för hjälpen med att göra det här rätt.
+>
+> Hälsning Mats.E
