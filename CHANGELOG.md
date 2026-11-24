@@ -3,6 +3,7 @@
 All notable changes to Species Data (SLU Artdatabanken). The same entries, shortened, are in the `changelog` key of `species_data/metadata.txt`, which is what QGIS and plugins.qgis.org show. Keep the two in step.
 
 ## Unreleased
+- New area on the Geography tab: **Drawn rectangle**. Click **Draw rectangle**, drag on the map, release to finish (Escape cancels). The area is shown in hectares, and a rectangle over 100 ha is rejected: observation density varies too much across the country for a count-based limit to be meaningful. **Clear** removes it again.
 - Localities tab: **Check all** and **Uncheck all** buttons next to the species list, to tick or untick every species at once instead of one at a time.
 - The Localities layer draws its classes in the order of the legend: strong current on top, then sporadic, historical, not refound and uncertain. The draw order is set by the class alone.
 - Fix: the panel now shows at the first click on the toolbar icon. It was created and hidden again, so it appeared only at the second click.

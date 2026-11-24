@@ -12,10 +12,13 @@ from qgis.core import (
     QgsApplication,
     QgsCoordinateReferenceSystem,
     QgsCoordinateTransform,
+    QgsDistanceArea,
+    QgsGeometry,
     QgsProject,
+    QgsRectangle,
 )
-from qgis.gui import QgsCollapsibleGroupBox
-from qgis.PyQt.QtCore import QCoreApplication, QDate
+from qgis.gui import QgsCollapsibleGroupBox, QgsMapToolExtent
+from qgis.PyQt.QtCore import QCoreApplication, QDate, Qt, pyqtSignal
 from qgis.PyQt.QtWidgets import (
     QCheckBox,
     QComboBox,
@@ -25,6 +28,7 @@ from qgis.PyQt.QtWidgets import (
     QFrame,
     QGridLayout,
     QGroupBox,
+    QHBoxLayout,
     QLabel,
     QMessageBox,
     QPlainTextEdit,
@@ -47,6 +51,7 @@ from .query import (
     ABSENT,
     BOTH,
     DEFAULT_ORGANISM_GROUP,
+    MAX_DRAWN_AREA_HA,
     PRESENT,
     REDLIST_CATEGORIES,
     THREATENED_CATEGORIES,
@@ -89,6 +94,44 @@ def tr(text):
     return QCoreApplication.translate("SpeciesDataDockWidget", text)
 
 
+class _RectangleTool(QgsMapToolExtent):
+    """Draws one rectangle by click-drag, then restores the map tool that was active before.
+
+    Escape cancels the drag and also restores the previous tool, without drawing anything.
+    """
+
+    rectangle_drawn = pyqtSignal(QgsRectangle)
+
+    def __init__(self, canvas, previous_tool):
+        super().__init__(canvas)
+        self.setCursor(Qt.CursorShape.CrossCursor)
+        self._previous_tool = previous_tool
+        self._last = None
+        self.extentChanged.connect(self._remember)
+
+    def _remember(self, rectangle):
+        self._last = rectangle
+
+    def _restore_previous(self):
+        canvas = self.canvas()
+        if self._previous_tool is not None:
+            canvas.setMapTool(self._previous_tool)
+        else:
+            canvas.unsetMapTool(self)
+
+    def canvasReleaseEvent(self, event):
+        super().canvasReleaseEvent(event)
+        last = self._last
+        self._restore_previous()
+        if last is not None:
+            self.rectangle_drawn.emit(last)
+
+    def keyPressEvent(self, event):
+        super().keyPressEvent(event)
+        if event.key() == Qt.Key.Key_Escape:
+            self._restore_previous()
+
+
 class SpeciesDataDockWidget(QDockWidget):
     def __init__(self, iface, parent=None):
         super().__init__(tr("Species Data (SLU Artdatabanken)"), parent)
@@ -97,6 +140,9 @@ class SpeciesDataDockWidget(QDockWidget):
         self._count = None  # (Query, Count) of the last count
         self._unknown = ()  # names in the last count that match nothing in the data
         self._aliases = {}  # Swedish genus name typed by the user -> scientific genus
+        self._drawn_rectangle = None  # QgsRectangle in the canvas CRS, or None
+        self._drawn_area_ha = 0.0
+        self._draw_tool = None  # kept alive while active, so Qt does not drop it
         self._count_task = None
         self._execute_pending = False  # the button was pressed, waiting for the count
         self._downloading = False
@@ -175,9 +221,23 @@ class SpeciesDataDockWidget(QDockWidget):
             for widget in root.findChildren(widget_type):
                 getattr(widget, signal).connect(self._clear_count)
 
+    def _search_hint(self) -> str:
+        """Why a search cannot start yet, or "" when it can."""
+        if self.area_drawn.isChecked():
+            if self._drawn_rectangle is None:
+                return tr("Draw a rectangle on the map first.")
+            if self._drawn_area_ha > MAX_DRAWN_AREA_HA:
+                return tr(
+                    "The drawn area is too large: {ha:.0f} ha (max {limit} ha). "
+                    "Draw a smaller rectangle."
+                ).format(ha=self._drawn_area_ha, limit=MAX_DRAWN_AREA_HA)
+        if self.all_species.isChecked() or bool(self.names.toPlainText().strip()):
+            return ""
+        return tr("Enter at least one species or genus name, or tick All species.")
+
     def _can_search(self):
-        """A search needs names, or the explicit choice to search all species."""
-        return self.all_species.isChecked() or bool(self.names.toPlainText().strip())
+        """A search needs names (or all species) and, with a drawn area, a usable rectangle."""
+        return not self._search_hint()
 
     def _refresh_buttons(self):
         """Counting and fetching need names (or all species), and nothing else running."""
@@ -192,10 +252,7 @@ class SpeciesDataDockWidget(QDockWidget):
         self._stop_count()
         self._count = None
         self._unknown = ()
-        hint = "" if self._can_search() else tr(
-            "Enter at least one species or genus name, or tick All species."
-        )
-        self.count_label.setText(hint)
+        self.count_label.setText(self._search_hint())
 
     def _stop_count(self):
         if self._count_task is not None:
@@ -305,6 +362,7 @@ class SpeciesDataDockWidget(QDockWidget):
         self.area_canvas = QRadioButton(tr("Current map extent"))
         self.area_county = QRadioButton(tr("County"))
         self.area_sweden = QRadioButton(tr("Whole of Sweden"))
+        self.area_drawn = QRadioButton(tr("Drawn rectangle"))
         self.area_canvas.setChecked(True)
         self.county = QComboBox()
         self.county.addItems(COUNTIES)
@@ -315,8 +373,63 @@ class SpeciesDataDockWidget(QDockWidget):
         layout.addWidget(self.area_county)
         layout.addWidget(self.county)
         layout.addWidget(self.area_sweden)
+        layout.addWidget(self.area_drawn)
+
+        drawn_buttons = QHBoxLayout()
+        self.draw_rectangle_button = QPushButton(tr("Draw rectangle"))
+        self.draw_rectangle_button.setToolTip(
+            tr("Click and drag on the map. Escape cancels.")
+        )
+        self.draw_rectangle_button.clicked.connect(self._start_draw_rectangle)
+        drawn_buttons.addWidget(self.draw_rectangle_button)
+        self.clear_drawn_button = QPushButton(tr("Clear"))
+        self.clear_drawn_button.setEnabled(False)
+        self.clear_drawn_button.clicked.connect(self._clear_drawn_rectangle)
+        drawn_buttons.addWidget(self.clear_drawn_button)
+        layout.addLayout(drawn_buttons)
+        self.drawn_area_label = QLabel(tr("No rectangle drawn yet."))
+        self.drawn_area_label.setWordWrap(True)
+        layout.addWidget(self.drawn_area_label)
+
         layout.addStretch()
         return tab
+
+    def _start_draw_rectangle(self):
+        canvas = self.iface.mapCanvas()
+        tool = _RectangleTool(canvas, canvas.mapTool())
+        tool.rectangle_drawn.connect(self._set_drawn_rectangle)
+        self._draw_tool = tool
+        canvas.setMapTool(tool)
+
+    def _rectangle_area_ha(self, rectangle: QgsRectangle) -> float:
+        canvas = self.iface.mapCanvas()
+        project = QgsProject.instance()
+        distance_area = QgsDistanceArea()
+        distance_area.setSourceCrs(canvas.mapSettings().destinationCrs(), project.transformContext())
+        distance_area.setEllipsoid(project.ellipsoid())
+        return distance_area.measureArea(QgsGeometry.fromRect(rectangle)) / 10000
+
+    def _set_drawn_rectangle(self, rectangle: QgsRectangle):
+        self._drawn_rectangle = rectangle
+        self._drawn_area_ha = self._rectangle_area_ha(rectangle)
+        self.clear_drawn_button.setEnabled(True)
+        self.area_drawn.setChecked(True)
+        if self._drawn_area_ha > MAX_DRAWN_AREA_HA:
+            self.drawn_area_label.setText(
+                tr("Too large: {ha:.0f} ha (max {limit} ha). Draw a smaller rectangle.").format(
+                    ha=self._drawn_area_ha, limit=MAX_DRAWN_AREA_HA
+                )
+            )
+        else:
+            self.drawn_area_label.setText(tr("Area: {ha:.1f} ha").format(ha=self._drawn_area_ha))
+        self._clear_count()
+
+    def _clear_drawn_rectangle(self):
+        self._drawn_rectangle = None
+        self._drawn_area_ha = 0.0
+        self.clear_drawn_button.setEnabled(False)
+        self.drawn_area_label.setText(tr("No rectangle drawn yet."))
+        self._clear_count()
 
     def _properties_tab(self):
         tab = QWidget()
@@ -377,7 +490,12 @@ class SpeciesDataDockWidget(QDockWidget):
             if line.strip() and not self.all_species.isChecked()
         )
         date_from, date_to = self._period()
-        bbox = self._canvas_bbox() if self.area_canvas.isChecked() else None
+        if self.area_canvas.isChecked():
+            bbox = self._canvas_bbox()
+        elif self.area_drawn.isChecked():
+            bbox = self._rectangle_bbox(self._drawn_rectangle)
+        else:
+            bbox = None
         return Query(
             organism_group=DEFAULT_ORGANISM_GROUP,
             names=names,
@@ -407,12 +525,16 @@ class SpeciesDataDockWidget(QDockWidget):
         return None, None
 
     def _canvas_bbox(self):
+        return self._rectangle_bbox(self.iface.mapCanvas().extent())
+
+    def _rectangle_bbox(self, rectangle: QgsRectangle) -> BoundingBoxWgs84:
+        """``rectangle``, in the canvas CRS, as a WGS84 bounding box."""
         canvas = self.iface.mapCanvas()
         wgs84 = QgsCoordinateReferenceSystem("EPSG:4326")
         transform = QgsCoordinateTransform(
             canvas.mapSettings().destinationCrs(), wgs84, QgsProject.instance()
         )
-        extent = transform.transformBoundingBox(canvas.extent())
+        extent = transform.transformBoundingBox(rectangle)
         return BoundingBoxWgs84(
             extent.xMinimum(), extent.yMinimum(), extent.xMaximum(), extent.yMaximum()
         )

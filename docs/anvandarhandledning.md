@@ -61,6 +61,7 @@ Alla år (förvalt), Innevarande år, Föregående år, Senaste 5 åren, Senaste
 - **Aktuellt kartutsnitt** (förvalt): det du ser i kartfönstret när du trycker på en knapp. Pluginet räknar själv om utsnittet till rätt koordinatsystem, så kartans projektion spelar ingen roll.
 - **Län:** välj ett av de 21 länen.
 - **Hela Sverige**
+- **Ritad ruta:** tryck på **Rita ruta**, klicka och dra på kartan, släpp för att avsluta. Esc avbryter rutan utan att rita den. Ytan visas i hektar under knapparna; en ruta större än 100 hektar är för stor, och du behöver rita en mindre. **Rensa** tar bort rutan igen. Det tidigare aktiva kartverktyget återställs när du släpper musknappen eller trycker Esc. Sökningen tar med fynd vars egen punkt ligger i rutan — inte fynd vars osäkerhetscirkel bara sträcker sig in i den.
 
 ### Fyndegenskaper
 

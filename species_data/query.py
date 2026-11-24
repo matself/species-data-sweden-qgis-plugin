@@ -17,6 +17,12 @@ WFS_PAGING_LIMIT = 100000
 # too much to be useful.
 WARN_THRESHOLD = 2000
 
+# A drawn search area (rectangle or, later, polygon) is capped at this size, decided by Mats
+# 2026-11-24: the number of observations per area varies too much across the country and
+# between habitats to be a good measure of whether a search is reasonable, but the area itself
+# is predictable wherever it is drawn.
+MAX_DRAWN_AREA_HA = 100
+
 DEFAULT_ORGANISM_GROUP = "Kärlväxter"
 
 # All red list categories, in the order the UI shows them. The WFS

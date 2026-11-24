@@ -423,6 +423,10 @@
       <translation>Anmärkningar (fritext, kan innehålla personuppgifter)</translation>
     </message>
     <message>
+      <source>Enter at least one species or genus name, or tick All species.</source>
+      <translation>Ange minst ett arts- eller släktnamn, eller kryssa i Alla arter.</translation>
+    </message>
+    <message>
       <source>Species Data (SLU Artdatabanken)</source>
       <translation>Artdata (SLU Artdatabanken)</translation>
     </message>
@@ -453,10 +457,6 @@
     <message>
       <source>Co-occurrence</source>
       <translation>Samvariation</translation>
-    </message>
-    <message>
-      <source>Enter at least one species or genus name, or tick All species.</source>
-      <translation>Ange minst ett arts- eller släktnamn, eller kryssa i Alla arter.</translation>
     </message>
     <message>
       <source>Counting observations...</source>
@@ -529,6 +529,26 @@
       <translation>Hela Sverige</translation>
     </message>
     <message>
+      <source>Drawn rectangle</source>
+      <translation>Ritad ruta</translation>
+    </message>
+    <message>
+      <source>Draw rectangle</source>
+      <translation>Rita ruta</translation>
+    </message>
+    <message>
+      <source>Click and drag on the map. Escape cancels.</source>
+      <translation>Klicka och dra på kartan. Esc avbryter.</translation>
+    </message>
+    <message>
+      <source>Clear</source>
+      <translation>Rensa</translation>
+    </message>
+    <message>
+      <source>No rectangle drawn yet.</source>
+      <translation>Ingen ruta ritad än.</translation>
+    </message>
+    <message>
       <source>Only observed</source>
       <translation>Endast observerad</translation>
     </message>
@@ -597,6 +617,10 @@
       <translation>Extrafält</translation>
     </message>
     <message>
+      <source>Draw a rectangle on the map first.</source>
+      <translation>Rita en ruta på kartan först.</translation>
+    </message>
+    <message>
       <source>Species or genus names</source>
       <translation>Arts- eller släktnamn</translation>
     </message>
@@ -639,6 +663,18 @@
     <message>
       <source>The layer could not be created.</source>
       <translation>Lagret kunde inte skapas.</translation>
+    </message>
+    <message>
+      <source>The drawn area is too large: {ha:.0f} ha (max {limit} ha). Draw a smaller rectangle.</source>
+      <translation>Det ritade området är för stort: {ha:.0f} ha (max {limit} ha). Rita en mindre ruta.</translation>
+    </message>
+    <message>
+      <source>Too large: {ha:.0f} ha (max {limit} ha). Draw a smaller rectangle.</source>
+      <translation>För stort: {ha:.0f} ha (max {limit} ha). Rita en mindre ruta.</translation>
+    </message>
+    <message>
+      <source>Area: {ha:.1f} ha</source>
+      <translation>Yta: {ha:.1f} ha</translation>
     </message>
     <message>
       <source>About {n} observations. That is a lot for a dot map (warning from {w}).</source>

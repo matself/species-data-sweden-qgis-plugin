@@ -102,6 +102,45 @@ def test_check_all_and_uncheck_all_tick_every_species_with_one_refresh():
     assert not refreshes
 
 
+def test_drawn_rectangle_area_is_capped_and_feeds_the_query():
+    from qgis.core import QgsCoordinateReferenceSystem, QgsRectangle
+    from qgis.gui import QgsMapCanvas
+
+    from species_data.dockwidget import SpeciesDataDockWidget
+    from species_data.query import MAX_DRAWN_AREA_HA
+
+    canvas = QgsMapCanvas()
+    canvas.setDestinationCrs(QgsCoordinateReferenceSystem("EPSG:3006"))  # metres
+
+    class Iface:
+        def mapCanvas(self):
+            return canvas
+
+    widget = SpeciesDataDockWidget(Iface())
+    widget.area_drawn.setChecked(True)
+    assert "Draw a rectangle" in widget._search_hint()
+    assert not widget._can_search()
+
+    one_km_square = QgsRectangle(0, 0, 1000, 1000)  # 100 ha
+    widget._set_drawn_rectangle(one_km_square)
+    assert widget._drawn_area_ha == pytest.approx(100, rel=0.05)
+    assert widget.area_drawn.isChecked()
+
+    widget.all_species.setChecked(True)
+    assert widget._can_search()
+    query = widget.build_query()
+    assert query.bbox_wgs84 is not None
+
+    too_big = QgsRectangle(0, 0, 5000, 5000)  # 2500 ha, over the limit
+    widget._set_drawn_rectangle(too_big)
+    assert widget._drawn_area_ha > MAX_DRAWN_AREA_HA
+    assert not widget._can_search()
+    assert str(MAX_DRAWN_AREA_HA) in widget._search_hint()
+
+    widget._clear_drawn_rectangle()
+    assert "Draw a rectangle" in widget._search_hint()
+
+
 def test_the_first_click_shows_the_panel_and_the_second_hides_it():
     from qgis.gui import QgsMapCanvas
     from qgis.PyQt.QtWidgets import QMainWindow
