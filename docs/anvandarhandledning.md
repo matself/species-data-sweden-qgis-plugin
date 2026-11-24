@@ -2,7 +2,7 @@
 
 > **Fristående plugin — utvecklas, ägs och stöds inte av SLU eller SLU Artdatabanken.** Det är ett privat projekt som råkar använda deras öppna data, inget mer. Det är inte ett officiellt tillägg från SLU Artdatabanken. Fynddata hämtas från SLU Artdatabankens Species Observation System enligt deras API-villkor. Pluginet använder bara fynd från datasetet Artportalen.
 
-Den här handledningen är på svenska och hör till version 1.0.1 av pluginet. En engelsk beskrivning finns i [README.md](../README.md).
+Den här handledningen är på svenska och hör till version 1.1.0 av pluginet. En engelsk beskrivning finns i [README.md](../README.md).
 
 ## 1. Vad pluginet gör
 
@@ -21,7 +21,7 @@ Krav: QGIS 3.44 eller senare, och internetanslutning.
 
 1. Öppna **Tillägg > Hantera och installera tillägg...** (på engelska *Plugins > Manage and Install Plugins...*).
 2. Välj fliken **Installera från ZIP**.
-3. Välj filen `species_data-1.0.1.zip` och klicka **Installera tillägg**. Svara OK om QGIS varnar för att installera från en fil.
+3. Välj filen `species_data-1.1.0.zip` och klicka **Installera tillägg**. Svara OK om QGIS varnar för att installera från en fil.
 4. Se till att **Artdata (SLU Artdatabanken)** är ikryssat under fliken **Installerade**.
 
 Pluginet visas som en vitsippsikon i verktygsraden och som **Tillägg > Artdata (SLU Artdatabanken)**. Klicka på det för att öppna eller stänga panelen, som dockas till höger. Panelen är på svenska om QGIS är inställt på svenska, annars på engelska.

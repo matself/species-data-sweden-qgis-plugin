@@ -1,10 +1,10 @@
 # Att göra inför nästa version
 
-Skrivet 2026-11-09, efter att `export-import` mergats till `main`. Version 1.0.1 är den senast släppta. Det som är gjort men inte släppt står under *Unreleased* i [CHANGELOG.md](../../CHANGELOG.md). Mats väntar med nästa version tills det kommit feedback på den första, så listan kan växa.
+Skrivet 2026-11-09, efter att `export-import` mergats till `main`. Version 1.1.0 (2026-11-24) är den senast släppta: punkterna 1, rutan i punkt 2, och punkt 3 nedan är med i den. Polygonen i punkt 2 återstår till en kommande version.
 
 Reglerna i [CLAUDE.md](../../CLAUDE.md) gäller för varje punkt: källogg, metodbeskrivningarna hålls i takt med koden, och posten i `CHANGELOG.md` och i `species_data/metadata.txt` skrivs i samma incheckning som versionshöjningen.
 
-## 1. Markera alla / avmarkera alla i artlistan på fliken Lokaler — klart (2026-11-24)
+## 1. Markera alla / avmarkera alla i artlistan på fliken Lokaler — klart, släppt i 1.1.0
 
 Två knappar, **Check all** och **Uncheck all** (`species_data/locality_tab.py`: `_check_all`), vid artlistan. De blockerar signalerna, ändrar alla kryssrutor och anropar `_refresh` en gång, inte en gång per art. Är ingen art ikryssad visar `_refresh` redan "Tick at least one species in the list." och Starta-knappen är avstängd, som tidigare. Test i `tests/test_plugin_load.py` (körs i CI mot QGIS). Texterna är i `species_data/i18n/species_data_sv.ts`/`.qm`, handledningen och `CHANGELOG.md` är uppdaterade.
 
@@ -14,7 +14,7 @@ Två knappar, **Check all** och **Uncheck all** (`species_data/locality_tab.py`:
 
 **Önskemål.** Användaren ritar en polygon på kartan, eller drar upp en ruta, och sökningen görs inom det området.
 
-### Rutan — klart (2026-11-24)
+### Rutan — klart, släppt i 1.1.0
 
 Mats valde att börja med bara rutan; polygonen återstår (se nedan). Byggt:
 - Ny radioknapp **Drawn rectangle** på fliken Geografi, med knapparna **Draw rectangle** och **Clear** och en etikett som visar ytan i hektar (`species_data/dockwidget.py`: `_geography_tab`, `_start_draw_rectangle`, `_set_drawn_rectangle`, `_clear_drawn_rectangle`).
