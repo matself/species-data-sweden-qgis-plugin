@@ -2,7 +2,7 @@
 
 Den här handledningen är på svenska och hör till version 1.0.1 av pluginet. En engelsk beskrivning finns i [README.md](../README.md).
 
-> **Fristående plugin.** Pluginet är utvecklat av en privatperson. Det ägs, utvecklas och stöds inte av SLU eller SLU Artdatabanken. Fynddata hämtas från SLU Artdatabankens Species Observation System (Artportalen) enligt deras API-villkor.
+> **Fristående plugin.** Pluginet är utvecklat av en privatperson. Det ägs, utvecklas och stöds inte av SLU eller SLU Artdatabanken. Fynddata hämtas från SLU Artdatabankens Species Observation System enligt deras API-villkor. Pluginet använder bara fynd från datasetet Artportalen.
 >
 > **Testversion.** Pluginet är märkt experimentellt och är inte publicerat. Synpunkter välkomnas, se sist i det här dokumentet.
 

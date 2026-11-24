@@ -49,7 +49,7 @@ Mats valde att börja med bara rutan; polygonen återstår (se nedan). Byggt:
 
 ## 3. Svar från SLU Artdatabanken om namn, logotyp och beskrivning (inkommet 2026-11-11)
 
-**Status.** Namnet är beslutat av Mats 2026-11-24: **Species data (Sverige)**, ersätter "Species Data (SLU Artdatabanken)" överallt (kod, metadata, i18n, README, handledningen, `CHANGELOG.md`) — gjort i samma incheckning som denna rad. Paketets id (`species_data`) och repository-URL:erna i `species_data/metadata.txt` (`homepage`, `repository`, `tracker`) är **inte** ändrade än, det är en separat fråga (se nedan). Logotyp och beskrivningstext (datakällemeningarna SLU föreslog) är fortfarande obeslutade. Svaret kom från Martin på SLU Artdatabanken efter att han provat pluginet och stämt av med chef och förvaltningsansvarig.
+**Status.** Namnet är beslutat av Mats 2026-11-24: **Species data (Sverige)**, ersätter "Species Data (SLU Artdatabanken)" överallt (kod, metadata, i18n, README, handledningen, `CHANGELOG.md`). Repository-URL:erna i `metadata.txt` och datakälle-meningarna i handledningen och README är också uppdaterade (se nedan). Kvar: GitHub-repots egen "About"-beskrivning (Mats fixar själv) och ikonen (redan kontrollerad, inget att ändra). Svaret kom från Martin på SLU Artdatabanken efter att han provat pluginet och stämt av med chef och förvaltningsansvarig.
 
 **Vad SLU sa**
 - *Bra som det är:* README och handledningen säger tydligt att pluginet är fristående och varken utvecklas, ägs eller stöds av SLU eller SLU Artdatabanken, och anger varifrån data hämtas.
@@ -66,8 +66,9 @@ Bytt överallt namnet förekom: `name` i `species_data/metadata.txt`, `species_d
 - ~~Repository-URL:erna i `metadata.txt`.~~ Synkade 2026-11-24: `homepage`, `repository` och `tracker` pekar nu på `github.com/matself/species-data-sweden-qgis-plugin`, samma som länken i handledningen. Den lokala git-remoten (`origin`) hade redan synkats av sig själv tidigare samma dag.
 - Har pluginet redan publicerats på plugins.qgis.org med det gamla namnet? Då gäller andra regler för namnbyte där. Kontrollera innan det publiceras med det nya namnet.
 - Ikonen (`species_data/icon.svg`): kontrollerad 2026-11-24, en egen generisk blomikon utan SLU-element. Inget att ändra, men svara SLU att den inte innehåller deras logotyp.
-- Beskrivningstexterna SLU föreslog (datakälle-meningen i handledningen, GitHub-repots beskrivning) är inte ändrade än.
-- Svar till Martin när Mats är klar med hela paketet (namn beslutat och genomfört; logotyp och beskrivning återstår).
+- ~~Beskrivningstexterna i handledningen och README.~~ Ändrade 2026-11-24: handledningens mening är uppdelad som SLU föreslog, och READMEs "Artportalen data" är nu "Artportalen dataset".
+- GitHub-repots egen "About"-beskrivning är fortfarande den gamla ("QGIS plugin: Species Data (SLU Artdatabanken)...", inte uppdaterad vid namnbytet eftersom den inte ligger i en fil). Mats uppdaterar den själv.
+- Svar till Martin när Mats är klar med hela paketet (namn, URL:er och beskrivningstexter genomförda; GitHub-beskrivningen och eventuellt svar om logotypen återstår).
 
 **Dokumentation.** Ändrar namnet eller beskrivningen något som metodbeskrivningarna citerar ska de hållas i takt med koden (CLAUDE.md). Posten i `CHANGELOG.md` och i `species_data/metadata.txt` ska vara lika.
 

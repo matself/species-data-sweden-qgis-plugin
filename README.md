@@ -2,7 +2,7 @@
 
 # Species data (Sverige)
 
-A QGIS plugin for building dot maps of vascular plant observations from the Artportalen data held by SLU Artdatabanken, without needing to know APIs or filter languages.
+A QGIS plugin for building dot maps of vascular plant observations from the Artportalen dataset held by SLU Artdatabanken, without needing to know APIs or filter languages.
 
 > **Independent plugin.** This plugin is community-developed. It is not developed, owned or endorsed by SLU or SLU Artdatabanken. Data is retrieved from SLU Artdatabanken's Species Observation System under their API terms. Observation data is provided by SLU Artdatabanken; see their [API terms](https://www.slu.se/artdatabanken/rapportering-och-fynd/oppna-data-och-apier/api-villkor/).
 
