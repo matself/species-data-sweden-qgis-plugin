@@ -1,4 +1,4 @@
-"""Main plugin class for Species Data (SLU Artdatabanken)."""
+"""Main plugin class for Species data (Sverige)."""
 from pathlib import Path
 
 from qgis.PyQt.QtCore import QCoreApplication, QSettings, Qt, QTranslator
@@ -34,7 +34,7 @@ class SpeciesDataPlugin:
 
     def initGui(self):  # noqa: N802 (name required by QGIS)
         icon = QIcon(str(self.plugin_dir / "icon.svg"))
-        self.menu_name = self.tr("Species Data (SLU Artdatabanken)")
+        self.menu_name = self.tr("Species data (Sverige)")
         self.action = QAction(icon, self.menu_name, self.iface.mainWindow())
         self.action.triggered.connect(self.run)
         self.iface.addToolBarIcon(self.action)

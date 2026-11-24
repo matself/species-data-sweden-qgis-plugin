@@ -17,7 +17,7 @@ SPECIES_CATEGORY = "Art"
 
 
 # Identifies the client to the service, as SLU Artdatabanken asks API users to do.
-REQUESTING_SYSTEM = f"QGIS plugin Species Data (SLU Artdatabanken) {provenance.plugin_version()}".encode("ascii")
+REQUESTING_SYSTEM = f"QGIS plugin Species data (Sverige) {provenance.plugin_version()}".encode("ascii")
 
 
 class NetworkError(RuntimeError):

@@ -427,8 +427,8 @@
       <translation>Ange minst ett arts- eller släktnamn, eller kryssa i Alla arter.</translation>
     </message>
     <message>
-      <source>Species Data (SLU Artdatabanken)</source>
-      <translation>Artdata (SLU Artdatabanken)</translation>
+      <source>Species data (Sverige)</source>
+      <translation>Species data (Sverige)</translation>
     </message>
     <message>
       <source>Count observations</source>
@@ -700,8 +700,8 @@
   <context>
     <name>SpeciesDataPlugin</name>
     <message>
-      <source>Species Data (SLU Artdatabanken)</source>
-      <translation>Artdata (SLU Artdatabanken)</translation>
+      <source>Species data (Sverige)</source>
+      <translation>Species data (Sverige)</translation>
     </message>
   </context>
 </TS>

@@ -1,5 +1,5 @@
 [general]
-name=Species Data (SLU Artdatabanken)
+name=Species data (Sverige)
 qgisMinimumVersion=3.44
 qgisMaximumVersion=4.99
 description=Fetch vascular plant observations from Artportalen (SLU Artdatabanken) as a temporary, year-coloured point layer.

@@ -1,4 +1,4 @@
-"""Dock widget for Species Data (SLU Artdatabanken).
+"""Dock widget for Species data (Sverige).
 
 Code-only (no .ui file, so no uic differences between Qt5 and Qt6). The "Fetch" tab
 has five sections that follow the structure of SLU Artdatabanken's own search page, Fynddata,
@@ -134,7 +134,7 @@ class _RectangleTool(QgsMapToolExtent):
 
 class SpeciesDataDockWidget(QDockWidget):
     def __init__(self, iface, parent=None):
-        super().__init__(tr("Species Data (SLU Artdatabanken)"), parent)
+        super().__init__(tr("Species data (Sverige)"), parent)
         self.iface = iface
         self.setObjectName("SpeciesDataDockWidget")
         self._count = None  # (Query, Count) of the last count

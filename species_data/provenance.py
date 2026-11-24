@@ -8,7 +8,7 @@ from .query import Query
 
 SOURCE = "SLU Artdatabanken, Species Observation System"
 DISCLAIMER = (
-    "Created with the independent plugin Species Data (SLU Artdatabanken). "
+    "Created with the independent plugin Species data (Sverige). "
     "The plugin is not developed, owned or endorsed by SLU."
 )
 
