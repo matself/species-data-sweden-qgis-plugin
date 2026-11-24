@@ -14,7 +14,7 @@ The panel has five collapsible sections, in the same order as SLU Artdatabanken'
 
 - **Taxa:** one or more names, one per line, matched ignoring case. A species name (`Anemone nemorosa`, `vitsippa`) matches the species and its subspecies, varieties and forms, but not hybrids. A genus (`Anemone`, or its Swedish name `sippor`) includes all its species. Names that match nothing in the data are flagged. Without any name, tick **All species**; that is meant for a small map area or a few red list categories, since the count limits stop searches with too many observations. A Swedish genus name can only be resolved when the data has observations identified to that genus.
 - **Time:** all years, current year, previous year, last 5 or 25 years, or a custom range.
-- **Geography:** the current map extent, a county, or all of Sweden.
+- **Geography:** the current map extent, a county, all of Sweden, or a rectangle drawn on the map (capped at 100 ha).
 - **Properties:** occurrence (observed, not found, both), maximum coordinate uncertainty, uncertain identifications, verified only, red list categories.
 - **Extra fields:** optional fields such as habitat and life stage. The standard fields include the quantity and its unit. Free text remarks are off by default because they can contain personal data.
 
@@ -56,6 +56,8 @@ New-Item -ItemType Junction `
   -Path "$env:APPDATA\QGIS\QGIS3\profiles\default\python\plugins\species_data" `
   -Target "$PWD\species_data"
 ```
+
+Careful: QGIS's own "Install from ZIP" deletes the existing plugin folder before extracting the new one. With the junction above in place, that delete goes straight through to the real `species_data/` folder in this repo and wipes it (everything committed is still safe in git; `git restore species_data/` brings it back). Don't install a release zip over a linked dev folder — remove the junction first, or reinstall into a separate QGIS profile.
 
 Compile the Swedish translation once when developing with a linked folder (the `.qm` file is not committed):
 
