@@ -74,7 +74,7 @@ Namnet byttes till "Species data (Sverige)" överallt (kod, metadata, i18n, READ
 
 **Ikonen** (`species_data/icon.svg`): kontrollerad 2026-11-24, en egen generisk blomikon utan SLU-element. Inget att ändra, men svara SLU att den inte innehåller deras logotyp.
 
-**Svar till Martin.** Redan skickat 2026-11-15 (se `docs/SOURCES.md` och `docs/utveckling/findings.md`), och det mejlet lovar ett namnbyte till "Species Data (Sverige)" / "Artdata (Sverige)" som alltså **inte** blir av. **Mats behöver skicka en uppföljning till Martin** som förklarar att namnet står kvar (med skälen ovan), eftersom mejlet annars säger fel sak. Inte gjort än.
+**Svar till Martin.** Redan skickat 2026-11-15 (se `docs/SOURCES.md` och `docs/utveckling/findings.md`), och det mejlet lovar ett namnbyte till "Species Data (Sverige)" / "Artdata (Sverige)" som alltså **inte** blir av. Ett utkast till uppföljning finns i `docs/utveckling/uppfoljning-martin-utkast.md` (2026-11-24) — inte skickat än. Logga i `docs/SOURCES.md` och ta bort utkastfilen när det är skickat.
 
 **Dokumentation.** Ändrar namnet eller beskrivningen något som metodbeskrivningarna citerar ska de hållas i takt med koden (CLAUDE.md). Posten i `CHANGELOG.md` och i `species_data/metadata.txt` ska vara lika.
 
