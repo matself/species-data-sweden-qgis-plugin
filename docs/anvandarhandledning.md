@@ -207,4 +207,4 @@ Det här är en första testversion. Särskilt intressant att få synpunkter på
 - om gränserna (varning från 2 000 fynd, stopp vid 100 000) och antalet anrop är rimliga för tjänsten
 - om källangivelsen och texten om att pluginet är fristående är tillräckliga och tydliga
 
-Skicka synpunkter till Mats Elfström, mats.elfstrom@gmail.com, eller som ärende på kodförrådet: <https://github.com/matself/slu-artdatabanken-QGIS-plugin/issues> (kodförrådet är ännu inte publikt).
+Skicka synpunkter till Mats Elfström, mats.elfstrom@gmail.com, eller som ärende på kodförrådet: <https://github.com/matself/species-data-sweden-qgis-plugin/issues> (kodförrådet är ännu inte publikt).
